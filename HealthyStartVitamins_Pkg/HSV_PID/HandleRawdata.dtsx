@@ -1,0 +1,1544 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2017 2:45:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HCDEVLAP177"
+  DTS:CreatorName="DEVELOPMENT\spinchahewage"
+  DTS:DTSID="{77D357A8-5E24-4452-9D59-E31195240337}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.101"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="HandleRawdata"
+  DTS:PackageType="5"
+  DTS:VersionBuild="132"
+  DTS:VersionGUID="{EE870738-14B0-4B7A-A3E6-291C621DBEC3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9EB9DD8B-7B5D-4A8E-94D7-62B9660AEFBB}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::VarMainFolderPath]  +&quot;\\&quot; + &quot;Archive&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="VarArchiveFolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Spinchahewage\Desktop\PersistentID_ManagementServer\GDoS\TFS Ready\HealthyStartVitamins\Archive</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C8AACF5F-0EB2-4A10-9773-5630A23F10A5}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::VarMainFolderPath] + &quot;\\&quot; + &quot;Import&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="VarImportFolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Spinchahewage\Desktop\PersistentID_ManagementServer\GDoS\TFS Ready\HealthyStartVitamins\Import</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B207FCEF-0162-436D-8A9A-0CD3CFC88165}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="VarMainFolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Spinchahewage\Desktop\PersistentID_ManagementServer\GDoS\TFS Ready\HealthyStartVitamins</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Folder Structure"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{DD9DEA9D-DB2E-4A2F-A316-5600B8B2B4DF}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Folder Structure">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Create Folder Structure\Create Archive Folder"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{B7A7E469-D96F-40EC-8246-F495EA2D6817}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Archive Folder"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="CreateDirectory"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::VarArchiveFolderPath"
+              TaskIsSourceVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Create Folder Structure\Create HealthyStartVitamins Folder"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{1E554774-CA50-43FE-9C14-D99AD99A0C18}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create HealthyStartVitamins Folder"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="CreateDirectory"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::VarMainFolderPath"
+              TaskIsSourceVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Create Folder Structure\Create Import Folder"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{DBAB14B7-9A4C-4FA2-B741-E2733D7547B9}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Import Folder"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="CreateDirectory"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::VarImportFolderPath"
+              TaskIsSourceVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Create Folder Structure\Delete Archive Folder"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{51A5E37C-9E21-4A2C-950E-CCA94F61B327}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Archive Folder"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="DeleteDirectory"
+              TaskSourcePath="User::VarArchiveFolderPath"
+              TaskIsSourceVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Create Folder Structure.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{207CDC4E-DDCC-4EC4-BE43-A30175F76D6C}"
+          DTS:From="Package\Create Folder Structure\Create HealthyStartVitamins Folder"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Create Folder Structure\Delete Archive Folder" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Create Folder Structure.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{B514E5E5-9D7E-42CA-BFC7-CBFAB0E60732}"
+          DTS:From="Package\Create Folder Structure\Create Archive Folder"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Create Folder Structure\Create Import Folder" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Create Folder Structure.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{34A62964-1228-4FBC-ACBF-2A0ECEA4A8BF}"
+          DTS:From="Package\Create Folder Structure\Delete Archive Folder"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Create Folder Structure\Create Archive Folder" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create RawdataT &amp; Import Data"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{15e3e772-5ca8-4443-8818-71339c1ab439}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create RawdataT &amp; Import Data">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Create RawdataT &amp; Import Data\Build ProperCase Function"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{25c35da2-3de8-4c0b-a37e-68fd559045da}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Build ProperCase Function"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="IF Object_id(N'[dbo].[OrgNameCase]',N'FN') IS NOT NULL&#xA;     DROP FUNCTION [dbo].[OrgNameCase]&#xA;GO&#xA;&#xA;Create Function OrgNameCase(@Text as varchar(120)) &#xA;&#xA;returns varchar(120)&#xA;as&#xA;begin&#xA;   declare @Reset bit;&#xA;   declare @Ret varchar(120);&#xA;   declare @i int;&#xA;   declare @c char(1);&#xA;&#xA;   select @Reset = 1, @i=1, @Ret = '';&#xA;&#xA;   while (@i &lt;= len(@Text))&#xA;    select @c= substring(@Text,@i,1),&#xA;               @Ret = @Ret + case when @Reset=1 then UPPER(@c) else LOWER(@c) end,&#xA;               @Reset = case when @c like '[a-zA-Z]' then 0 else 1 end,&#xA;               @i = @i +1&#xA;   return @Ret&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Create RawdataT &amp; Import Data\Create RawdataT"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0e501557-d901-4362-bab8-36dff612e350}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create RawdataT"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="IF Object_id('Staging.HSVRawdata') IS NOT NULL&#xA;&#xA;BEGIN &#xA; DROP TABLE Staging.HSVRawdata&#xA;END&#xA;&#xA;CREATE TABLE Staging.HSVRawdata(&#xA; [ID] [varchar](255) NULL,&#xA; [CustomerKey]  [varchar](300) NULL,&#xA; [Region] [varchar](255) NULL,&#xA; [PCT] [varchar](255) NULL,&#xA; [Name] [varchar](255) NULL,&#xA; [Address line 1] [varchar](255) NULL,&#xA; [Address line 2] [varchar](255) NULL,&#xA; [Address line 3] [varchar](255) NULL,&#xA; [Address line 4] [varchar](255) NULL,&#xA; [Address line 5] [varchar](255) NULL,&#xA; [Postcode] [varchar](8) NULL,&#xA; [PostcodeNoSpaces] [varchar](7) NULL,&#xA; [Opening hours/Availability] [varchar](255) NULL,&#xA; [Northing] [int] NULL,&#xA; [Easting] [int] NULL,&#xA; [Latitude] [float] NULL,&#xA; [Longitude] [float] NULL,&#xA; [LocalAuthorityCode] [varchar](4) NULL,&#xA; [Contact name] [varchar](255) NULL,&#xA; [Phone number] [varchar](255) NULL,&#xA; [Sell HS vitamins?] [varchar](255) NULL,&#xA; [Give them out free beyond the scheme?] [varchar](255) NULL,&#xA; [Any additional information?] [varchar](max) NULL&#xA;) ON [PRIMARY]&#xA;&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Create RawdataT &amp; Import Data\Import RawData"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{1138b0c8-c957-4b8b-af17-3aa99c4c6fd5}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Import RawData"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Inputs[Derived Column Input].Columns[Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Name"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Name]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Inputs[Derived Column Input].Columns[Postcode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="Postcode"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output].Columns[D_CustomerKey]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output].Columns[D_CustomerKey]"
+                          name="D_CustomerKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[UPPER]([REPLACE]([RTRIM]([LTRIM]([ISNULL](#{Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Name]}) ? "" : #{Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Name]}))," ","")) + [UPPER]([REPLACE]([RTRIM]([LTRIM]([ISNULL](#{Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]}) ? "" : #{Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]}))," ",""))</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">UPPER(REPLACE(RTRIM(LTRIM(ISNULL(Name) ? "" : Name))," ","")) + UPPER(REPLACE(RTRIM(LTRIM(ISNULL(Postcode) ? "" : Postcode))," ",""))</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output].Columns[D_PostCodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="7"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output].Columns[D_PostCodeNoSpaces]"
+                          name="D_PostCodeNoSpaces"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[UPPER]([REPLACE]([RTRIM]([LTRIM](#{Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]}))," ",""))</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">UPPER(REPLACE(RTRIM(LTRIM(Postcode))," ",""))</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="HSVRawdata"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Staging].[HSVRawdata]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Connections[OleDbConnection]"
+                      connectionManagerID="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[GDoS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="IgnoreFailure"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[ID]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[ID]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Region]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Region"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Region]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Region]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[PCT]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="PCT"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[PCT]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[PCT]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Name"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Name]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Address line 1]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Address line 1"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 1]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 1]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Address line 2]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Address line 2"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 2]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 2]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Address line 3]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Address line 3"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 3]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 3]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Address line 4]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Address line 4"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 4]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 4]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Address line 5]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Address line 5"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 5]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 5]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Postcode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="Postcode"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Postcode]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Contact name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Contact name"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Contact name]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Contact name]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Phone number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Phone number"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Phone number]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Phone number]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Any additional information?]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="Any additional information?"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Any additional information?]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Any additional information?]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Sell HS vitamins?]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Sell HS vitamins?"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Sell HS vitamins?]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Sell HS vitamins?]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Give them out free beyond the scheme?]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Give them out free beyond the scheme?"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Give them out free beyond the scheme?]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Give them out free beyond the scheme?]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[D_CustomerKey]"
+                          cachedDataType="wstr"
+                          cachedLength="263"
+                          cachedName="D_CustomerKey"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output].Columns[D_CustomerKey]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[Opening hours Availability]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="Opening hours Availability"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Opening hours/Availability]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Opening hours Availability]" />
+                        <inputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].Columns[D_PostCodeNoSpaces]"
+                          cachedDataType="wstr"
+                          cachedLength="8"
+                          cachedName="D_PostCodeNoSpaces"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[PostcodeNoSpaces]"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output].Columns[D_PostCodeNoSpaces]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="CustomerKey" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Region]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Region" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[PCT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="PCT" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 1" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 2]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 2" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 3]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 3" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 4]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 4" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Address line 5]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 5" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Postcode" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[PostcodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="PostcodeNoSpaces" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Opening hours/Availability]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Opening hours/Availability" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Northing]"
+                          dataType="i4"
+                          name="Northing" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Easting]"
+                          dataType="i4"
+                          name="Easting" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Latitude]"
+                          dataType="r8"
+                          name="Latitude" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Longitude]"
+                          dataType="r8"
+                          name="Longitude" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[LocalAuthorityCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="LocalAuthorityCode" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Contact name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Contact name" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Phone number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Phone number" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Sell HS vitamins?]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Sell HS vitamins?" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Give them out free beyond the scheme?]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Give them out free beyond the scheme?" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input].ExternalColumns[Any additional information?]"
+                          codePage="1252"
+                          dataType="text"
+                          name="Any additional information?" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="HSVRawdataFile"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Connections[FlatFileConnection]"
+                      connectionManagerID="{1ABF302D-577A-43F0-A8CD-7E91E330250A}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[RAWDATA]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[ID]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[ID]"
+                          length="50"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[ID]"
+                          name="ID"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Region]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Region]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Region]"
+                          name="Region"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[PCT]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[PCT]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[PCT]"
+                          name="PCT"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Name]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Name]"
+                          name="Name"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 1]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 1]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 1]"
+                          name="Address line 1"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 2]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 2]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 2]"
+                          name="Address line 2"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 3]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 3]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 3]"
+                          name="Address line 3"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 4]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 4]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 4]"
+                          name="Address line 4"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 5]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 5]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Address line 5]"
+                          name="Address line 5"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Postcode]"
+                          length="8"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Postcode]"
+                          name="Postcode"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Opening hours Availability]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Opening hours Availability]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Opening hours Availability]"
+                          name="Opening hours Availability"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Contact name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Contact name]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Contact name]"
+                          name="Contact name"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Phone number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Phone number]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Phone number]"
+                          name="Phone number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Any additional information?]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Any additional information?]"
+                          length="8000"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Any additional information?]"
+                          name="Any additional information?"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Sell HS vitamins?]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Sell HS vitamins?]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Sell HS vitamins?]"
+                          name="Sell HS vitamins?"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Give them out free beyond the scheme?]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Give them out free beyond the scheme?]"
+                          length="255"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].Columns[Give them out free beyond the scheme?]"
+                          name="Give them out free beyond the scheme?"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Region]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Region" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[PCT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="PCT" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 1" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 2]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 2" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 3]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 3" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 4]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 4" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Address line 5]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Address line 5" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Postcode" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Opening hours Availability]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Opening hours Availability" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Contact name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Contact name" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Phone number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Phone number" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Any additional information?]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          name="Any additional information?" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Sell HS vitamins?]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Sell HS vitamins?" />
+                        <externalMetadataColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output].ExternalColumns[Give them out free beyond the scheme?]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Give them out free beyond the scheme?" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Create RawdataT &amp; Import Data\Import RawData.Paths[Derived Column Output]"
+                  endId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Create RawdataT &amp; Import Data\Import RawData.Paths[Flat File Source Output]"
+                  endId="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column.Inputs[Derived Column Input]"
+                  name="Flat File Source Output"
+                  startId="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile.Outputs[Flat File Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Create RawdataT &amp; Import Data.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{8b43e7b3-c045-48a0-a92b-f644b10a46bb}"
+          DTS:From="Package\Create RawdataT &amp; Import Data\Create RawdataT"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Create RawdataT &amp; Import Data\Import RawData" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Create RawdataT &amp; Import Data.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{996AC779-AB38-47E3-8909-0A146435CE38}"
+          DTS:From="Package\Create RawdataT &amp; Import Data\Build ProperCase Function"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Create RawdataT &amp; Import Data\Create RawdataT" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6027DDF1-75CD-4BBA-8935-7666B7E36538}"
+      DTS:From="Package\Create Folder Structure"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Create RawdataT &amp; Import Data" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176.666666666667,42.6666666666667"
+          Id="Package\Create Folder Structure\Create Archive Folder"
+          TopLeft="25.333326180776,174.133328157266" />
+        <NodeLayout
+          Size="179.333333333334,54.6666666666667"
+          Id="Package\Create Folder Structure\Create HealthyStartVitamins Folder"
+          TopLeft="21.1666595761977,20.2999975746871" />
+        <NodeLayout
+          Size="175.333333333334,42.6666666666667"
+          Id="Package\Create Folder Structure\Create Import Folder"
+          TopLeft="25.3333261807761,249.099993483424" />
+        <NodeLayout
+          Size="177.333333333334,42.6666666666667"
+          Id="Package\Create Folder Structure\Delete Archive Folder"
+          TopLeft="25.0833333767951,103.533331458171" />
+        <EdgeLayout
+          Id="Package\Create Folder Structure.PrecedenceConstraints[Constraint]"
+          TopLeft="112.291663143163,74.9666642413537">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.5666672168173"
+              Start="0,0"
+              End="0,21.0666672168173">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.0666672168173" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Create Folder Structure.PrecedenceConstraints[Constraint 1]"
+          TopLeft="113.333326180776,216.799994823932">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.2999986594917"
+              Start="0,0"
+              End="0,24.7999986594917">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7999986594917" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Create Folder Structure.PrecedenceConstraints[Constraint 2]"
+          TopLeft="113.708329778786,146.199998124838">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.9333300324279"
+              Start="0,0"
+              End="0,20.4333300324279">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.4333300324279" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="230,322"
+          Size="230,364.666666666667"
+          Id="Package\Create Folder Structure"
+          TopLeft="37.9166661016645,8.66666651169461" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Create RawdataT &amp; Import Data\Build ProperCase Function"
+          TopLeft="20.5833321722846,18.1333318765959" />
+        <NodeLayout
+          Size="159.333333333334,42.6666666666667"
+          Id="Package\Create RawdataT &amp; Import Data\Create RawdataT"
+          TopLeft="19.8333334699273,90.399998651743" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\Create RawdataT &amp; Import Data\Import RawData"
+          TopLeft="22.083333451301,161.808331959892" />
+        <EdgeLayout
+          Id="Package\Create RawdataT &amp; Import Data.PrecedenceConstraints[Constraint]"
+          TopLeft="100.125000127281,133.06666531841">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.7416666414826"
+              Start="0,0"
+              End="0,21.2416666414826">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.2416666414826" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Create RawdataT &amp; Import Data.PrecedenceConstraints[Constraint 2]"
+          TopLeft="99.708332821106,60.7999985432626">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.6000001084805"
+              Start="0,0"
+              End="0,22.1000001084805">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.1000001084805" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="193.333333333334,224.666666666667"
+          Size="193.333333333334,267.333333333334"
+          Id="Package\Create RawdataT &amp; Import Data"
+          TopLeft="55.4513880625986,415.111104653942" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="152.517360415465,373.333333178361">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.7777714755807"
+              Start="0,0"
+              End="0,34.2777714755807">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.2777714755807" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Create RawdataT &amp; Import Data\Import RawData">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdataFile"
+          TopLeft="51.6666658967728,24.2999998992681" />
+        <NodeLayout
+          Size="156.666666666667,42.6666666666667"
+          Id="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata"
+          TopLeft="51.2499992363155,173.766663559477" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\Create RawdataT &amp; Import Data\Import RawData\Derived Column"
+          TopLeft="50.4166659153999,97.4999982565641" />
+        <EdgeLayout
+          Id="Package\Create RawdataT &amp; Import Data\Import RawData.Paths[Flat File Source Output]"
+          TopLeft="129.37499923942,66.9666665659348">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.5333316906293"
+              Start="0,0"
+              End="0,23.0333316906293">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.0333316906293" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Create RawdataT &amp; Import Data\Import RawData.Paths[Derived Column Output]"
+          TopLeft="128.999999242524,140.166664923231">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.5999986362462"
+              Start="0,0"
+              End="0,26.0999986362462">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.0999986362462" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Create RawdataT &amp; Import Data\Import RawData\HSVRawdata">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

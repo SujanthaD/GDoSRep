@@ -1,0 +1,768 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/21/2017 10:07:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HCDEVLAP177"
+  DTS:CreatorName="DEVELOPMENT\spinchahewage"
+  DTS:DTSID="{A26268F2-AD3C-477E-BCA5-95402AF4E9EC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.101"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="NonCoreDataLoad"
+  DTS:PackageType="5"
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{2526B156-AC74-47E1-83ED-0F0C7035261F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Populate NonCore Data"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{4fe61ef3-8686-4739-848d-0db1ce00880e}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate NonCore Data">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Populate NonCore Data\Delete Existing NonCore Data"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9ed5efa6-f09e-4ad5-9dbf-f097ead021f2}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Existing NonCore Data"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="delete N from dbo.NonCore N &#xA;inner join Organisation O on N.OrganisationID = O.OrganisationID &#xA;where SupplierID = 'HSV'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate NonCore Data\Populate NonCore"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{844e1bdc-9a9e-4027-8758-962b0df83abe}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Populate NonCore"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="NonCore Data Conversions"
+                  usesDispositions="true"
+                  validateExternalMetadata="False">
+                  <inputs>
+                    <input
+                      refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Inputs[Data Conversion Input].Columns[ElementTitle]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="ElementTitle"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementTitle]" />
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Inputs[Data Conversion Input].Columns[ElementText]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="ElementText"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementText]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output].Columns[C_ElementTitle]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output].Columns[C_ElementTitle]"
+                          name="C_ElementTitle"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementTitle]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output].Columns[C_ElementText]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="8000"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output].Columns[C_ElementText]"
+                          name="C_ElementText"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementText]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="NonCore Query"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">---Populate Noncore
+--About
+DECLARE @Abttext NVARCHAR(1000)
+SET @Abttext = 'If you get Healthy Start vouchers you will also be sent a green coupon, every eight weeks, you can swap locally for FREE Healthy Start vitamins.' + CHAR(13) + 
+'To pick up your vitamins just take your green vitamin coupon along to this distribution point where you can exchange it.' + CHAR(13) + 
+'Ask your midwife or health visitor if you need any further advice or visit www.healthystart.nhs.uk'
+select DISTINCT O.OrganisationID, N.Title as 'ElementTitle', @Abttext as 'ElementText', 1 as 'ElementOrder',
+N.MetricID as 'MetricID'
+from dbo.Organisation O
+inner join dbo.Noncoretitlecodes N on N.Title = 'About'
+where N.Title = 'About' 
+and O.IsDeleted = 0
+and O.SupplierID = 'HSV'
+group by O.OrganisationID,N.Title,N.MetricID
+      UNION
+--Contact Name
+select DISTINCT O.OrganisationID, N.Title as 'ElementTitle', RTRIM(LTRIM(HSV.[Contact name])) as 'ElementText', 2 as 'ElementOrder',
+N.MetricID as 'MetricID'
+from dbo.Organisation O
+inner join Staging.HSVRawdata HSV on O.CustomerKey = HSV.CustomerKey
+inner join dbo.Noncoretitlecodes N on N.Title = 'Contact person'
+where O.IsDeleted = 0
+and O.SupplierID = 'HSV'
+and N.Title = 'Contact person' 
+and ((HSV.[Contact name] IS NOT NULL) AND (HSV.[Contact name] &lt;&gt; ''))
+group by O.OrganisationID,N.Title,HSV.[Contact name],N.MetricID
+      UNION
+--Opening times
+select DISTINCT O.OrganisationID, N.Title as 'ElementTitle', RTRIM(LTRIM(HSV.[Opening hours/Availability])) as 'ElementText', 3 as 'ElementOrder',
+N.MetricID as 'MetricID'
+from dbo.Organisation O
+inner join Staging.HSVRawdata HSV on O.CustomerKey = HSV.CustomerKey
+inner join dbo.Noncoretitlecodes N on N.Title = 'Opening times'
+where O.IsDeleted = 0
+and O.SupplierID = 'HSV'
+and N.Title = 'Opening times' 
+and ((HSV.[Opening hours/Availability] IS NOT NULL) AND (HSV.[Opening hours/Availability] &lt;&gt; '')) 
+group by O.OrganisationID,N.Title,HSV.[Opening hours/Availability],N.MetricID
+      UNION
+--Sell HS Vitamins
+select DISTINCT O.OrganisationID, N.Title as 'ElementTitle',RTRIM(LTRIM(dbo.[OrgNameCase](HSV.[Sell HS vitamins?]))) as 'ElementText', 4 as 'ElementOrder',
+N.MetricID as 'MetricID'
+from dbo.Organisation O
+inner join Staging.HSVRawdata HSV on O.CustomerKey = HSV.CustomerKey
+inner join dbo.Noncoretitlecodes N on N.Title = 'Sells HS vitamins'
+where O.IsDeleted = 0
+and O.SupplierID = 'HSV'
+and N.Title = 'Sells HS vitamins' 
+and ((HSV.[Sell HS vitamins?] IS NOT NULL) AND (HSV.[Sell HS vitamins?] &lt;&gt; '')) 
+group by O.OrganisationID,N.Title,HSV.[Sell HS vitamins?],N.MetricID
+      UNION
+--Free HS Vitamins?
+select DISTINCT O.OrganisationID, N.Title as 'ElementTitle',RTRIM(LTRIM(dbo.[OrgNameCase](HSV.[Give them out free beyond the scheme?]))) as 'ElementText', 5 as 'ElementOrder',
+N.MetricID as 'MetricID'
+from dbo.Organisation O
+inner join Staging.HSVRawdata HSV on O.CustomerKey = HSV.CustomerKey
+inner join dbo.Noncoretitlecodes N on N.Title = 'Free HS vitamins'
+where O.IsDeleted = 0
+and O.SupplierID = 'HSV'
+and N.Title = 'Free HS vitamins' 
+and ((HSV.[Give them out free beyond the scheme?] IS NOT NULL) AND (HSV.[Give them out free beyond the scheme?] &lt;&gt; '')) 
+group by O.OrganisationID,N.Title,HSV.[Give them out free beyond the scheme?],N.MetricID
+      UNION 
+-- Additional Information 
+select DISTINCT O.OrganisationID, N.Title as 'ElementTitle',RTRIM(LTRIM(dbo.[OrgNameCase](HSV.[Any additional information?]))) as 'ElementText', 6 as 'ElementOrder',
+N.MetricID as 'MetricID'
+from dbo.Organisation O
+inner join Staging.HSVRawdata HSV on O.CustomerKey = HSV.CustomerKey
+inner join dbo.Noncoretitlecodes N on N.Title = 'Additional information'
+where O.IsDeleted = 0 
+and O.SupplierID = 'HSV'
+and N.Title = 'Additional information' 
+and ((HSV.[Any additional information?] IS NOT NULL) AND (HSV.[Any additional information?] &lt;&gt; ''))
+group by O.OrganisationID,N.Title,HSV.[Any additional information?],N.MetricID
+order by O.OrganisationID, ElementOrder</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Connections[OleDbConnection]"
+                      connectionManagerID="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[GDoS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[OrganisationID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[OrganisationID]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[OrganisationID]"
+                          name="OrganisationID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementTitle]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[ElementTitle]"
+                          length="255"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementTitle]"
+                          name="ElementTitle"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementText]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[ElementText]"
+                          length="1000"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementText]"
+                          name="ElementText"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementOrder]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[ElementOrder]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementOrder]"
+                          name="ElementOrder"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[MetricID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[MetricID]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[MetricID]"
+                          name="MetricID"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[OrganisationID]"
+                          dataType="i8"
+                          name="OrganisationID" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[ElementTitle]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="ElementTitle" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[ElementText]"
+                          dataType="wstr"
+                          length="1000"
+                          name="ElementText" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[ElementOrder]"
+                          dataType="i4"
+                          name="ElementOrder" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].ExternalColumns[MetricID]"
+                          dataType="i4"
+                          name="MetricID" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[OrganisationID]"
+                          dataType="i8"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[OrganisationID]"
+                          name="OrganisationID" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ElementTitle]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ElementTitle]"
+                          name="ElementTitle" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ElementText]"
+                          dataType="wstr"
+                          length="1000"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ElementText]"
+                          name="ElementText" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ElementOrder]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ElementOrder]"
+                          name="ElementOrder" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[MetricID]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[MetricID]"
+                          name="MetricID" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Populate Final NonCore"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[NonCore]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Connections[OleDbConnection]"
+                      connectionManagerID="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[GDoS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].Columns[OrganisationID]"
+                          cachedDataType="i4"
+                          cachedName="OrganisationID"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[OrganisationID]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[OrganisationID]" />
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].Columns[ElementOrder]"
+                          cachedDataType="i4"
+                          cachedName="ElementOrder"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[ElementOrder]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[ElementOrder]" />
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].Columns[C_ElementTitle]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="C_ElementTitle"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[ElementTitle]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output].Columns[C_ElementTitle]" />
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].Columns[C_ElementText]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="C_ElementText"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[ElementText]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output].Columns[C_ElementText]" />
+                        <inputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].Columns[MetricID]"
+                          cachedDataType="i4"
+                          cachedName="MetricID"
+                          externalMetadataColumnId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[MetricID]"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output].Columns[MetricID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[OrganisationID]"
+                          dataType="i8"
+                          name="OrganisationID" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[ElementTitle]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="ElementTitle" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[ElementText]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          name="ElementText" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[ElementOrder]"
+                          dataType="i4"
+                          name="ElementOrder" />
+                        <externalMetadataColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input].ExternalColumns[MetricID]"
+                          dataType="i4"
+                          name="MetricID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Populate NonCore Data\Populate NonCore.Paths[Data Conversion Output]"
+                  endId="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Populate NonCore Data\Populate NonCore.Paths[OLE DB Source Output]"
+                  endId="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Populate NonCore Data\Populate NonCore\NonCore Query.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate NonCore Data.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{645abb5f-e338-4fd2-a16d-76228fae1559}"
+          DTS:From="Package\Populate NonCore Data\Delete Existing NonCore Data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Populate NonCore Data\Populate NonCore" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Populate NonCore Data\Delete Existing NonCore Data"
+          TopLeft="14.8333333209157,14.466667069594" />
+        <NodeLayout
+          Size="166,42.6666666666667"
+          Id="Package\Populate NonCore Data\Populate NonCore"
+          TopLeft="17.2499999813735,82.93333390673" />
+        <EdgeLayout
+          Id="Package\Populate NonCore Data.PrecedenceConstraints[Constraint 1]"
+          TopLeft="99.5416666511446,56.466667069594">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.466666837136"
+              Start="0,0"
+              End="0,18.966666837136">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.966666837136" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="198.666666666667,138.666666666667"
+          Size="198.666666666667,182"
+          Id="Package\Populate NonCore Data"
+          TopLeft="27.4642852752336,30.5999997210503" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Populate NonCore Data\Populate NonCore">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168.666666666667,42.6666666666667"
+          Id="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore"
+          TopLeft="43.9166672192513,171.033334208925" />
+        <NodeLayout
+          Size="167.333333333334,42.6666666666667"
+          Id="Package\Populate NonCore Data\Populate NonCore\NonCore Query"
+          TopLeft="43.9166672192514,27.4333335580428" />
+        <NodeLayout
+          Size="168.666666666667,42"
+          Id="Package\Populate NonCore Data\Populate NonCore\NonCore Data Conversions"
+          TopLeft="44.3333338797093,99.8333338369924" />
+        <EdgeLayout
+          Id="Package\Populate NonCore Data\Populate NonCore.Paths[OLE DB Source Output]"
+          TopLeft="128.12500054948,70.1000002247095">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.733333612283"
+              Start="0,0"
+              End="0,22.233333612283">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.233333612283" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate NonCore Data\Populate NonCore.Paths[Data Conversion Output]"
+          TopLeft="128.458333882814,141.833333836992">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.2000003719328"
+              Start="0,0"
+              End="0,21.7000003719328">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.7000003719328" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate NonCore Data\Populate NonCore\Populate Final NonCore">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate NonCore Data\Populate NonCore\NonCore Query">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

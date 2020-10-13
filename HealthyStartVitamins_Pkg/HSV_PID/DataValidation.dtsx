@@ -1,0 +1,148 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2017 2:52:09 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HCDEVLAP177"
+  DTS:CreatorName="DEVELOPMENT\spinchahewage"
+  DTS:DTSID="{0BA6276C-5C64-49BA-990C-7753664B8B01}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.101"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="DataValidation"
+  DTS:PackageType="5"
+  DTS:VersionBuild="42"
+  DTS:VersionGUID="{1E9EE861-127F-4FD8-A62D-D79EEFBB791A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5F6E07A1-21FD-44FF-9738-036EF72B359E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ProjectPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Spinchahewage\Desktop\PersitentIDWork\HealthyStartVitamins\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data ValidationTasks"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{b894d090-d250-407e-8973-256886a018fc}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data ValidationTasks">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Data ValidationTasks\Correct Email, Telephone, Website Details"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{89015144-97b4-434d-99fd-bdad471f025b}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Correct Email, Telephone, Website Details"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="--Correct Telephone&#xA;update Staging.HSVRawdata &#xA;set [Phone number] = NULL&#xA;where [Phone number] not like '%[0-9]%' OR [Phone number] like '4.48E+11%'&#xA;GO&#xA;&#xA;--Update Telephone to 'NULL' when its blank or long&#xA;update Staging.HSVRawdata&#xA;set [Phone number] = NULL&#xA;where [Phone number] = ''  OR [Phone number] = 'NULL'  OR len(RTRIM(LTRIM([Phone number]))) &gt; 50&#xA;GO&#xA;&#xA; --- Update telephone to add 0 at the begining when the length = 10&#xA;update Staging.HSVRawdata&#xA;set [Phone number] = CONCAT('0',[Phone number])&#xA;where len(LTRIM(RTRIM([Phone number]))) = 10 &#xA;GO&#xA;&#xA;--Trim Spaces&#xA;update Staging.HSVRawdata &#xA;set Name         = REPLACE(RTRIM(LTRIM(Name)),',',''),&#xA;[Address line 1] = RTRIM(LTRIM([Address line 1])),&#xA;[Address line 2] = RTRIM(LTRIM([Address line 2])),&#xA;[Address line 3] = RTRIM(LTRIM([Address line 3])),&#xA;[Address line 4] = RTRIM(LTRIM([Address line 4])),&#xA;[Address line 5] = RTRIM(LTRIM([Address line 5])),&#xA;[Postcode] = REPLACE(LTRIM(RTRIM(UPPER([Postcode]))),',',''),&#xA;[Phone number] = REPLACE(LTRIM(RTRIM([Phone number])),',',''),&#xA;[Contact name] = REPLACE(LTRIM(RTRIM([Contact name])),',',''),&#xA;[Opening hours/Availability] = REPLACE(LTRIM(RTRIM([Opening hours/Availability])),',',''),&#xA;[Sell HS vitamins?] = REPLACE(LTRIM(RTRIM([Sell HS vitamins?])),',',''),&#xA;[Give them out free beyond the scheme?] = REPLACE(LTRIM(RTRIM([Give them out free beyond the scheme?])),',',''),&#xA;[Any additional information?] = REPLACE(LTRIM(RTRIM(UPPER([Any additional information?]))),',',''),&#xA;[Region] = REPLACE(LTRIM(RTRIM([Region])),',',''),&#xA;[PCT] = REPLACE(LTRIM(RTRIM([PCT])),',','')&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Data ValidationTasks\Delete Empty Postcodes"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{c5bb2878-eecf-47d8-b884-cf990d0cc67d}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Empty Postcodes"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="--Delete empty and Invalid postcodes&#xA;DELETE FROM &#xA;Staging.HSVRawdata&#xA;WHERE ((Postcode is NULL) OR (Postcode = ''))&#xA;OR ISNUMERIC(Postcode) = 1 &#xA;OR Postcode like '%[@,#,$,%,*]%'&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Data ValidationTasks.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{70F5C32F-FAE6-41CE-B628-0F13A4AD478B}"
+          DTS:From="Package\Data ValidationTasks\Correct Email, Telephone, Website Details"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Data ValidationTasks\Delete Empty Postcodes" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="178.666666666667,51.3333333333334"
+          Id="Package\Data ValidationTasks\Correct Email, Telephone, Website Details"
+          TopLeft="17.7499999441207,16.2000013017656" />
+        <NodeLayout
+          Size="175.333333333334,43.3333333333334"
+          Id="Package\Data ValidationTasks\Delete Empty Postcodes"
+          TopLeft="20.249998814116,99.6333302881322" />
+        <EdgeLayout
+          Id="Package\Data ValidationTasks.PrecedenceConstraints[Constraint]"
+          TopLeft="107.499999379118,67.5333346350989">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.0999956530333"
+              Start="0,0"
+              End="0,24.5999956530333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5999956530333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="212.666666666667,162.666666666667"
+          Size="212.666666666667,206"
+          Id="Package\Data ValidationTasks"
+          TopLeft="21.1874999674037,17.902777761635" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

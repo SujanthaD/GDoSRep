@@ -1,0 +1,1571 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/20/2017 9:31:20 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HCDEVLAP177"
+  DTS:CreatorName="DEVELOPMENT\spinchahewage"
+  DTS:DTSID="{FBB97274-8713-4EA7-98A7-5DCE61DDCC2B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.101"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Geocoding"
+  DTS:PackageType="5"
+  DTS:VersionBuild="45"
+  DTS:VersionGUID="{73AC198A-14AB-4279-BE7C-9485B3FACBBE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D8057ABE-1E58-4A9A-91BF-EE4D67BC9FA3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ProjectPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Spinchahewage\Desktop\PersitentIDWork\HealthyStartVitamins\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Geocoding Process"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{1e20fe38-7dc0-4e9d-8c2b-e8a6c888e089}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Geocoding Process">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Geocoding Process\Create HSV_UpdateGeocodingP"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9d43f9b9-e7d7-4944-8a96-4d67d824de9e}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create HSV_UpdateGeocodingP"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="--Create HSV_UpdateGeocoding &#xA;IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'HSV_UpdateGeocoding')&#xA;DROP PROCEDURE [dbo].[HSV_UpdateGeocoding]&#xA;GO&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;CREATE PROCEDURE [dbo].[HSV_UpdateGeocoding]&#xA; @Postcode varchar(50)&#xA;,@PostcodeNoSpaces varchar(7)&#xA;,@Longitude float&#xA;,@Latitude float&#xA;,@Easting int&#xA;,@Northing int&#xA;,@LocalAuthorityCode varchar(50)&#xA;&#xA;AS&#xA;&#xA;BEGIN&#xA;&#xA;SET NOCOUNT ON;&#xA;&#xA;UPDATE Staging.HSVRawdata&#xA;&#xA;SET&#xA;    Longitude = @Longitude&#xA;   ,Latitude    = @Latitude&#xA;   ,Easting     = @Easting&#xA;   ,Northing   = @Northing&#xA;   ,LocalAuthorityCode = @LocalAuthorityCode&#xA;   ,Postcode = @Postcode&#xA;WHERE PostcodeNoSpaces = @PostcodeNoSpaces&#xA;&#xA;END&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Geocoding Process\Run Geocoding Process"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{0c9ce439-ee28-4d49-b511-c4507bd8d770}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Run Geocoding Process"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="HSVRawdata"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT HS.ID,
+HS.Name As OrganisationName,
+RTRIM(LTRIM(UPPER(HS.Postcode))) AS Postcode,
+REPLACE(LTRIM(RTRIM(UPPER(HS.Postcode))),' ','') As PostCodeNoSpaces 
+FROM Staging.HSVRawdata as HS LEFT JOIN dbo.VPostcode as P
+ON HS.PostcodeNoSpaces = P.PostcodeNoSpaces
+ORDER BY OrganisationName, HS.Postcode ASC</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Connections[OleDbConnection]"
+                      connectionManagerID="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[GDoS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_ID]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_ID]"
+                          name="S_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_OrganisationName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[OrganisationName]"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_OrganisationName]"
+                          name="S_OrganisationName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[Postcode]"
+                          length="8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_Postcode]"
+                          name="S_Postcode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[PostCodeNoSpaces]"
+                          length="8000"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]"
+                          name="S_PostCodeNoSpaces"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[OrganisationName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="OrganisationName" />
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Postcode" />
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].ExternalColumns[PostCodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          name="PostCodeNoSpaces" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[ID]"
+                          name="ID" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[OrganisationName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[OrganisationName]"
+                          name="OrganisationName" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[Postcode]"
+                          name="Postcode" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[PostCodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[PostCodeNoSpaces]"
+                          name="PostCodeNoSpaces" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup on VPostcode"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT RTRIM(LTRIM(UPPER(Postcode))) as Postcode, 
+RTRIM(LTRIM(UPPER(PostcodeNoSpaces))) as PostcodeNoSpaces,
+Northing,
+Easting,
+Latitude,
+Longitude,
+LocalAuthorityCode
+FROM dbo.VPostcode 
+WHERE (RTRIM(LTRIM(Postcode)) is not null AND RTRIM(LTRIM(Postcode)) != '')
+AND (Easting is not null AND Northing is not null)</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT RTRIM(LTRIM(UPPER(Postcode))) as Postcode, 
+RTRIM(LTRIM(UPPER(PostcodeNoSpaces))) as PostcodeNoSpaces,
+Northing,
+Easting,
+Latitude,
+Longitude,
+LocalAuthorityCode
+FROM dbo.VPostcode 
+WHERE (RTRIM(LTRIM(Postcode)) is not null AND RTRIM(LTRIM(Postcode)) != '')
+AND (Easting is not null AND Northing is not null)) [refTable]
+where [refTable].[PostcodeNoSpaces] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Postcode" dataType="DT_STR" length="8" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="PostcodeNoSpaces" dataType="DT_STR" length="7" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Northing" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Easting" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Latitude" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Longitude" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LocalAuthorityCode" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Connections[OleDbConnection]"
+                      connectionManagerID="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[GDoS]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Inputs[Lookup Input].Columns[S_PostCodeNoSpaces]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="S_PostCodeNoSpaces"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">PostcodeNoSpaces</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Postcode]"
+                          name="P_Postcode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Postcode</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_PostcodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="7"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_PostcodeNoSpaces]"
+                          name="P_PostcodeNoSpaces"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">PostcodeNoSpaces</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Northing]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Northing]"
+                          name="P_Northing"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Northing</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Easting]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Easting]"
+                          name="P_Easting"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Easting</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Latitude]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Latitude]"
+                          name="P_Latitude"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Latitude</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Longitude]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Longitude]"
+                          name="P_Longitude"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Longitude</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_LocalAuthorityCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_LocalAuthorityCode]"
+                          name="P_LocalAuthorityCode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">LocalAuthorityCode</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched"
+                  componentClassID="Microsoft.Sort"
+                  contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+                  name="Sort_Matched"
+                  validateExternalMetadata="False"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                      name="EliminateDuplicates">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the maximum number of threads to use for sorting."
+                      expressionType="Notify"
+                      name="MaximumThreads">-1</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input]"
+                      name="Sort Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[S_ID]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="S_ID"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_ID]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">1</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[S_OrganisationName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="S_OrganisationName"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_OrganisationName]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[S_Postcode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="S_Postcode"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_Postcode]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_Postcode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="P_Postcode"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Postcode]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_PostcodeNoSpaces]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="P_PostcodeNoSpaces"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_PostcodeNoSpaces]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_Northing]"
+                          cachedDataType="i4"
+                          cachedName="P_Northing"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Northing]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_Easting]"
+                          cachedDataType="i4"
+                          cachedName="P_Easting"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Easting]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_Latitude]"
+                          cachedDataType="r8"
+                          cachedName="P_Latitude"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Latitude]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_Longitude]"
+                          cachedDataType="r8"
+                          cachedName="P_Longitude"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Longitude]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[P_LocalAuthorityCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="P_LocalAuthorityCode"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_LocalAuthorityCode]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input].Columns[S_PostCodeNoSpaces]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="S_PostCodeNoSpaces"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output]"
+                      isSorted="true"
+                      name="Sort Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_ID]"
+                          name="S_ID"
+                          sortKeyPosition="1">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_ID]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_OrganisationName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_OrganisationName]"
+                          name="S_OrganisationName">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_OrganisationName]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_Postcode]"
+                          name="S_Postcode">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_Postcode]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Postcode]"
+                          name="P_Postcode">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Postcode]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_PostcodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_PostcodeNoSpaces]"
+                          name="P_PostcodeNoSpaces">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_PostcodeNoSpaces]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Northing]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Northing]"
+                          name="P_Northing">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Northing]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Easting]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Easting]"
+                          name="P_Easting">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Easting]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Latitude]"
+                          dataType="r8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Latitude]"
+                          name="P_Latitude">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Latitude]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Longitude]"
+                          dataType="r8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Longitude]"
+                          name="P_Longitude">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_Longitude]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_LocalAuthorityCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_LocalAuthorityCode]"
+                          name="P_LocalAuthorityCode">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output].Columns[P_LocalAuthorityCode]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_PostCodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_PostCodeNoSpaces]"
+                          name="S_PostCodeNoSpaces">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]}</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched"
+                  componentClassID="Microsoft.Sort"
+                  contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+                  name="Sort_Unmatched"
+                  validateExternalMetadata="False"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                      name="EliminateDuplicates">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the maximum number of threads to use for sorting."
+                      expressionType="Notify"
+                      name="MaximumThreads">-1</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Inputs[Sort Input]"
+                      name="Sort Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Inputs[Sort Input].Columns[S_ID]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="S_ID"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_ID]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">1</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Inputs[Sort Input].Columns[S_OrganisationName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="S_OrganisationName"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_OrganisationName]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Inputs[Sort Input].Columns[S_Postcode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="S_Postcode"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_Postcode]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Inputs[Sort Input].Columns[S_PostCodeNoSpaces]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="S_PostCodeNoSpaces"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output]"
+                      isSorted="true"
+                      name="Sort Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_ID]"
+                          name="S_ID"
+                          sortKeyPosition="1">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_ID]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_OrganisationName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_OrganisationName]"
+                          name="S_OrganisationName">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_OrganisationName]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_Postcode]"
+                          name="S_Postcode">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_Postcode]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_PostCodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Outputs[Sort Output].Columns[S_PostCodeNoSpaces]"
+                          name="S_PostCodeNoSpaces">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output].Columns[S_PostCodeNoSpaces]}</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results"
+                  componentClassID="Microsoft.OLEDBCommand"
+                  contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+                  description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+                  name="Update Geocoding Results"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">exec [dbo].[HSV_UpdateGeocoding] ?,?,?,?,?,?,?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Connections[OleDbConnection]"
+                      connectionManagerID="{26F5C968-FBEA-4DA2-82A4-D2D0D82496DB}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[GDoS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input]"
+                      errorOrTruncationOperation="Command Execution"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Command Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[P_Longitude]"
+                          cachedDataType="r8"
+                          cachedName="P_Longitude"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Longitude]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Longitude]" />
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[P_Latitude]"
+                          cachedDataType="r8"
+                          cachedName="P_Latitude"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Latitude]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Latitude]" />
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[P_Easting]"
+                          cachedDataType="i4"
+                          cachedName="P_Easting"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Easting]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Easting]" />
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[P_Northing]"
+                          cachedDataType="i4"
+                          cachedName="P_Northing"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Northing]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Northing]" />
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[P_LocalAuthorityCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="P_LocalAuthorityCode"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@LocalAuthorityCode]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_LocalAuthorityCode]" />
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[P_Postcode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="P_Postcode"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Postcode]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[P_Postcode]" />
+                        <inputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].Columns[S_PostCodeNoSpaces]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="S_PostCodeNoSpaces"
+                          externalMetadataColumnId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@PostcodeNoSpaces]"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output].Columns[S_PostCodeNoSpaces]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Postcode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="@Postcode">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">65</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Longitude]"
+                          dataType="r8"
+                          name="@Longitude">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Latitude]"
+                          dataType="r8"
+                          name="@Latitude">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Easting]"
+                          dataType="i4"
+                          name="@Easting">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@Northing]"
+                          dataType="i4"
+                          name="@Northing">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@PostcodeNoSpaces]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="@PostcodeNoSpaces">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">65</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input].ExternalColumns[@LocalAuthorityCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="@LocalAuthorityCode">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">65</property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Outputs[OLE DB Command Output]"
+                      exclusionGroup="1"
+                      name="OLE DB Command Output"
+                      synchronousInputId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Outputs[OLE DB Command Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Command Error Output"
+                      synchronousInputId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Geocoding Process\Run Geocoding Process.Paths[Lookup Match Output]"
+                  endId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Inputs[Sort Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Geocoding Process\Run Geocoding Process.Paths[Lookup No Match Output]"
+                  endId="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched.Inputs[Sort Input]"
+                  name="Lookup No Match Output"
+                  startId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\Geocoding Process\Run Geocoding Process.Paths[OLE DB Source Output]"
+                  endId="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Geocoding Process\Run Geocoding Process\HSVRawdata.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\Geocoding Process\Run Geocoding Process.Paths[Sort Output]"
+                  endId="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results.Inputs[OLE DB Command Input]"
+                  name="Sort Output"
+                  startId="Package\Geocoding Process\Run Geocoding Process\Sort_Matched.Outputs[Sort Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Geocoding Process.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{ED27B092-0A8A-4648-9530-4AFD83ED90F8}"
+          DTS:From="Package\Geocoding Process\Create HSV_UpdateGeocodingP"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Geocoding Process\Run Geocoding Process" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="193.333333333334,53.3333333333334"
+          Id="Package\Geocoding Process\Create HSV_UpdateGeocodingP"
+          TopLeft="20.4999988203247,18.13333218654" />
+        <NodeLayout
+          Size="189.333333333334,42.6666666666667"
+          Id="Package\Geocoding Process\Run Geocoding Process"
+          TopLeft="23.9999999999999,101.199998512268" />
+        <EdgeLayout
+          Id="Package\Geocoding Process.PrecedenceConstraints[Constraint]"
+          TopLeft="117.916666076829,71.4666655198733">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.7333329923947"
+              Start="0,0"
+              End="0,22.2333329923947">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.2333329923947" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="230.666666666667,161.333333333334"
+          Size="230.666666666667,204.666666666667"
+          Id="Package\Geocoding Process"
+          TopLeft="36.2499994598328,20.799999628067" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Geocoding Process\Run Geocoding Process">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Geocoding Process\Run Geocoding Process\Sort_Matched"
+          TopLeft="34,212.523810033003" />
+        <NodeLayout
+          Size="138.666666666667,42.6666666666667"
+          Id="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode"
+          TopLeft="134.999997988343,93.1666650007168" />
+        <NodeLayout
+          Size="157.333333333334,42"
+          Id="Package\Geocoding Process\Run Geocoding Process\Sort_Unmatched"
+          TopLeft="241.854166907258,210.769180488393" />
+        <NodeLayout
+          Size="146,50.6666666666667"
+          Id="Package\Geocoding Process\Run Geocoding Process\Update Geocoding Results"
+          TopLeft="34,290.523810033003" />
+        <NodeLayout
+          Size="140,42.6666666666667"
+          Id="Package\Geocoding Process\Run Geocoding Process\HSVRawdata"
+          TopLeft="133.74999800697,23.8333329071601" />
+        <EdgeLayout
+          Id="Package\Geocoding Process\Run Geocoding Process.Paths[Sort Output]"
+          TopLeft="107,254.523810033003">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Geocoding Process\Run Geocoding Process.Paths[OLE DB Source Output]"
+          TopLeft="204.041664664323,66.4999995738268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.66666542689"
+              Start="0,0"
+              End="0,19.16666542689">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.16666542689" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Geocoding Process\Run Geocoding Process.Paths[Lookup No Match Output]"
+          TopLeft="226.111109099454,135.833331667383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="94.4097244744706,74.9358488210095"
+              Start="0,0"
+              End="94.4097244744706,67.4358488210095">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.4872084556959" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.4872084556959"
+                    Point2="0,30.4872084556959"
+                    Point3="4,30.4872084556959" />
+                  <mssgle:LineSegment
+                    End="90.4097244744706,30.4872084556959" />
+                  <mssgle:CubicBezierSegment
+                    Point1="90.4097244744706,30.4872084556959"
+                    Point2="94.4097244744706,30.4872084556959"
+                    Point3="94.4097244744706,34.4872084556959" />
+                  <mssgle:LineSegment
+                    End="94.4097244744706,67.4358488210095" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8.60152448151471,35.1346102363988,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Geocoding Process\Run Geocoding Process.Paths[Lookup Match Output]"
+          TopLeft="182.555553543899,135.833331667383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-75.5555535438986,76.6904783656195"
+              Start="0,0"
+              End="-75.5555535438986,69.1904783656195">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.2010691449479" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.2010691449479"
+                    Point2="0,31.2010691449479"
+                    Point3="-4,31.2010691449479" />
+                  <mssgle:LineSegment
+                    End="-71.5555535438986,31.2010691449479" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-71.5555535438986,31.2010691449479"
+                    Point2="-75.5555535438986,31.2010691449479"
+                    Point3="-75.5555535438986,35.2010691449479" />
+                  <mssgle:LineSegment
+                    End="-75.5555535438986,69.1904783656195" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-85.9691634906993,35.8484709256508,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Geocoding Process\Run Geocoding Process\HSVRawdata">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Geocoding Process\Run Geocoding Process\Lookup on VPostcode">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
